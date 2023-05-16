@@ -7,6 +7,7 @@ float Tc, Tf;
 
 void setup() {
 Serial.begin(9600);
+pinMode(11, INPUT_PULLUP);  
 }
 
 void loop() {
@@ -16,7 +17,11 @@ void loop() {
   logR2 = log(R2);
   T = (1.0 / (c1 + c2*logR2 + c3*logR2*logR2*logR2));
   Tc = T - 273.15;
-  Tf = (Tc * 9.0)/ 5.0 + 32.0; 
+  Tf = (Tc * 9.0)/ 5.0 + 32.0;
+  
+  if (Tc > 25.00) {
+    tone(11, 1000);
+  }
 
   Serial.print("Temperature: "); 
   Serial.print(Tf);
